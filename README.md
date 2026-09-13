@@ -1,4 +1,4 @@
-# CSC4792_Group26_Mpongwe# CSC4792 Group 26 — Mpongwe Town Council CDF Dataset
+# CSC4792 Group 26 — Mpongwe Town Council CDF Dataset
 
 This project extracts and cleans a structured dataset of **84 Constituency
 Development Fund (CDF) community projects** for Mpongwe Town Council
