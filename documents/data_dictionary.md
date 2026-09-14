@@ -36,3 +36,23 @@ records published by Mpongwe Town Council for 2023, 2024, and 2025.
 | `comments` | Source comments where supplied. |
 | `source_document` | Local filename of the official procurement-plan PDF. |
 | `source_url` | Direct official Mpongwe Town Council URL for the source PDF. |
+
+## Financial Dataset
+
+`db-unza26-csc4792-mpongwe_financial_data.csv` contains comparable receipt and
+payment categories from the official audited financial statements for 2022 and
+2024. Totals and cash-balance rows are excluded.
+
+| Column | Description |
+|---|---|
+| `financial_record_id` | Stable generated financial-record identifier (format `MPONGWE-FIN-YYYY-NNN`). |
+| `year` | Financial year stated in the audited statement. |
+| `document_type` | Source document type: `audited_financial_statement_budget_actual`. |
+| `category` | Receipt or payment category exactly as labelled in the source statement. |
+| `budgeted_amount` | Final budget amount in Kwacha as printed in the source table; blank for a source dash. |
+| `actual_amount` | Actual amount in Kwacha as printed in the source table; blank for a source dash. |
+| `variance` | Source variance in Kwacha; parenthesised source values are stored as negative and a source dash remains blank. |
+| `revenue_or_expenditure` | Whether the source category occurs under receipts (`revenue`) or payments (`expenditure`). |
+| `currency` | Currency label used by the source statement (`Kwacha`). |
+| `source_document` | Local filename of the official audited financial-statement PDF. |
+| `source_url` | Direct official Mpongwe Town Council URL for the source PDF. |

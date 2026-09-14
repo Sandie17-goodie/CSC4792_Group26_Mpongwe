@@ -61,17 +61,18 @@ CSC4792_Group26_Mpongwe/
 
 ## Completed datasets
 
-The repository contains two completed, official-source datasets:
+The repository contains three completed, official-source datasets:
 
 | Dataset | Records | Coverage | Output |
 |---|---:|---|---|
 | CDF projects | 84 | 2025 | `data/processed/db-unza26-csc4792-mpongwe_cdf_projects.csv` |
 | Annual procurement plans | 147 | 2023-2025 | `data/processed/db-unza26-csc4792-mpongwe_procurement.csv` |
+| Audited financial statement categories | 39 | 2022, 2024 | `data/processed/db-unza26-csc4792-mpongwe_financial_data.csv` |
 
-Both files are UTF-8 CSVs with `|` as the separator. The original CDF
-content remains unchanged. A financial dataset is not included because the
-official financial source assessed for this update could not be retrieved as a
-complete file for structural validation; no values were inferred or exported.
+All files are UTF-8 CSVs with `|` as the separator. The original CDF content
+remains unchanged. The financial dataset contains only comparable, non-total
+receipt and payment categories from two complete audited financial statements;
+source dashes remain blank and no narrative amounts are inferred.
 
 ## Procurement sources and coverage
 
@@ -97,9 +98,11 @@ data/
   raw/
     mpongwe_cdf_projects_2025.pdf
     procurement/                 # official 2023-2025 procurement PDFs
+    financial/                   # official 2022 and 2024 audited statements
   processed/
     db-unza26-csc4792-mpongwe_cdf_projects.csv
     db-unza26-csc4792-mpongwe_procurement.csv
+    db-unza26-csc4792-mpongwe_financial_data.csv
 notebooks/
   group26_mpongwe_dataset_creation.ipynb
 documents/
@@ -110,8 +113,17 @@ documents/
 ## Reproducing all completed datasets
 
 1. Install dependencies: `pip install -r requirements.txt`
-2. Ensure the CDF source and the three procurement PDFs are present in the raw
-   paths shown above.
+2. Ensure the CDF source, the three procurement PDFs, and the two financial
+   statement PDFs are present in the raw paths shown above.
 3. Open `notebooks/group26_mpongwe_dataset_creation.ipynb` and restart the
    kernel, then run all cells from top to bottom.
-4. The notebook recreates both processed CSV files and validates their exports.
+4. The notebook recreates all three processed CSV files and validates their exports.
+
+## Financial sources and coverage
+
+The financial dataset uses the official 2022 and 2024 audited financial
+statements retained in `data/raw/financial/`. It extracts the source table's
+final budget, actual amount, and variance for non-total receipt and payment
+categories. The 2023 statement is an image-only scan, and the available 2025
+budget-performance document contains narrative half-year figures rather than a
+comparable financial table, so neither is forced into the CSV.

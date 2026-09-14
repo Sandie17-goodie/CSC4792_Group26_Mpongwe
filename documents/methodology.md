@@ -49,6 +49,30 @@
    header/page-number records. The exported pipe-separated CSV is read back and
    checked again.
 7. **Limitation**: Procurement plans describe planned activity, not confirmed
-   completed procurement. No financial dataset was exported because a complete
-   official financial document could not be retrieved and structurally assessed
-   to the same reliability standard.
+   completed procurement.
+
+## Financial Dataset Extraction
+
+1. **Source discovery and inspection**: Reviewed only the official Mpongwe
+   Town Council publications page and direct document URLs. The 2022 and 2024
+   audited financial statements downloaded completely, opened successfully,
+   had plausible page counts, and exposed machine-readable budget/actual
+   comparison tables. The 2023 statement is an image-only scan and the 2025
+   budget-performance document contains CDF project tables and narrative
+   half-year figures, so neither was used for structured financial records.
+2. **Extraction**: Used `pdfplumber` character coordinates on the validated
+   comparison-table pages to isolate each printed final-budget, actual-amount,
+   and variance cell. This avoids text-layer overlap between neighbouring PDF
+   columns. Only non-total receipt and payment rows were extracted.
+3. **Cleaning and normalization**: Removed PDF spacing and commas from numeric
+   cells, converted parenthesised variances to negative values, retained source
+   category wording, and represented printed dashes as missing values rather
+   than zero.
+4. **Validation**: Verified 19 records for 2022 and 20 for 2024; checked 39
+   total rows, 11 columns, unique IDs, no duplicate full rows, source-year
+   consistency, complete source document/URL fields, valid numeric amounts,
+   and exclusion of totals/cash rows. The pipe-separated export is read back
+   and checked again.
+5. **Limitation**: Financial coverage is limited to the two comparable audited
+   statements. No values were inferred from the scanned 2023 statement or from
+   2025 narrative performance text.
