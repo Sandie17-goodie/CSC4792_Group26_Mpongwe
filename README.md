@@ -86,8 +86,9 @@ The plans are machine-readable spreadsheets rendered as PDFs. The 2023 and
 2025 plans use horizontal page splits; the notebook joins paired page sections
 by the original spreadsheet row number. It excludes repeated headers and page
 numbers, normalizes whitespace/dates/numeric values, and retains missing values
-where the PDF clips a value or does not provide it. In particular, incomplete
-2023 and 2025 description/reference cells are not guessed.
+where the PDF does not provide a complete value. Source-visible description
+text is retained verbatim, including visible truncation; incomplete reference
+numbers are not guessed.
 
 ## Repository structure
 

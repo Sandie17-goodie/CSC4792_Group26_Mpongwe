@@ -38,10 +38,11 @@
    converted unambiguous source dates to ISO format, converted valid quantities
    and 2025 planned budgets to numeric values, and retained the original source
    labels for classifications, funding, and methods.
-5. **Missing values**: Kept values blank when absent, malformed, or visually
-   clipped in the source PDF. The 2023 and 2025 layouts clip description and
-   some reference-number cells, so no descriptions or reference values are
-   inferred from partial text.
+5. **Missing values**: Kept values blank when absent, malformed, or when a
+   complete source value is not exposed. The 2023 and 2025 layouts clip some
+   cells: source-visible description text is retained verbatim, while a
+   reference number is retained only when its complete printed code can be
+   recovered from the PDF text layer without inference.
 6. **Validation**: Verified 47 rows for 2023, 37 for 2024, and 63 for 2025;
    verified 147 total rows, 17 columns, unique IDs, no duplicate full rows,
    source-year consistency, complete source document/URL fields, and absence of

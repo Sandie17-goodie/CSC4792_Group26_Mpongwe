@@ -23,7 +23,7 @@ records published by Mpongwe Town Council for 2023, 2024, and 2025.
 | `year` | Procurement-plan year stated in the source PDF. |
 | `procurement_class` | Source procurement class, such as `goods`, `works`, or `non consulting services`. |
 | `unspsc` | UNSPSC commodity/service code as printed in the source plan. |
-| `description` | Procurement description where the source layout exposes a complete value. Blank where 2023/2025 printed cells are clipped rather than reconstructed. |
+| `description` | Verbatim description text visible in the source PDF. Some 2023/2025 values are visibly truncated by the printed layout and are not expanded or guessed. |
 | `reference_number` | Official procurement reference number only when it can be extracted completely from the source PDF. |
 | `unit_of_measure` | Unit of measure as printed in the plan. |
 | `quantity` | Source quantity converted to a numeric value; blank where absent or not validly extractable. |
