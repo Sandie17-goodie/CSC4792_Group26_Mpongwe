@@ -21,3 +21,58 @@
    genuinely unrecoverable sector values blank rather than guessing.
 8. **Export**: Saved the final dataset as a pipe-separated (`|`) CSV
    following the CSC4792 naming convention.
+
+## Procurement Dataset Extraction
+
+1. **Source discovery**: Used only the official Mpongwe Town Council
+   publications page and its direct links to annual procurement plans for 2023,
+   2024, and 2025.
+2. **Document inspection**: Confirmed that all three PDFs contain
+   machine-readable spreadsheet tables. The 2023 plan has two horizontal page
+   sections, the 2024 plan is a single table, and the 2025 plan has left/right
+   sections across six pages. Repeated headers and page numbers are not data.
+3. **Extraction**: Used `pdfplumber` table extraction and each plan's printed
+   spreadsheet row number to pair corresponding horizontal sections. Generated
+   identifiers retain that year-and-row provenance (`APPYYYY-NNN`).
+4. **Cleaning and normalization**: Normalized whitespace and line breaks,
+   converted unambiguous source dates to ISO format, converted valid quantities
+   and 2025 planned budgets to numeric values, and retained the original source
+   labels for classifications, funding, and methods.
+5. **Missing values**: Kept values blank when absent, malformed, or when a
+   complete source value is not exposed. The 2023 and 2025 layouts clip some
+   cells: source-visible description text is retained verbatim, while a
+   reference number is retained only when its complete printed code can be
+   recovered from the PDF text layer without inference.
+6. **Validation**: Verified 47 rows for 2023, 37 for 2024, and 63 for 2025;
+   verified 147 total rows, 17 columns, unique IDs, no duplicate full rows,
+   source-year consistency, complete source document/URL fields, and absence of
+   header/page-number records. The exported pipe-separated CSV is read back and
+   checked again.
+7. **Limitation**: Procurement plans describe planned activity, not confirmed
+   completed procurement.
+
+## Financial Dataset Extraction
+
+1. **Source discovery and inspection**: Reviewed only the official Mpongwe
+   Town Council publications page and direct document URLs. The 2022 and 2024
+   audited financial statements downloaded completely, opened successfully,
+   had plausible page counts, and exposed machine-readable budget/actual
+   comparison tables. The 2023 statement is an image-only scan and the 2025
+   budget-performance document contains CDF project tables and narrative
+   half-year figures, so neither was used for structured financial records.
+2. **Extraction**: Used `pdfplumber` character coordinates on the validated
+   comparison-table pages to isolate each printed final-budget, actual-amount,
+   and variance cell. This avoids text-layer overlap between neighbouring PDF
+   columns. Only non-total receipt and payment rows were extracted.
+3. **Cleaning and normalization**: Removed PDF spacing and commas from numeric
+   cells, converted parenthesised variances to negative values, retained source
+   category wording, and represented printed dashes as missing values rather
+   than zero.
+4. **Validation**: Verified 19 records for 2022 and 20 for 2024; checked 39
+   total rows, 11 columns, unique IDs, no duplicate full rows, source-year
+   consistency, complete source document/URL fields, valid numeric amounts,
+   and exclusion of totals/cash rows. The pipe-separated export is read back
+   and checked again.
+5. **Limitation**: Financial coverage is limited to the two comparable audited
+   statements. No values were inferred from the scanned 2023 statement or from
+   2025 narrative performance text.

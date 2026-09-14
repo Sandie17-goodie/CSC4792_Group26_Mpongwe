@@ -58,3 +58,72 @@ CSC4792_Group26_Mpongwe/
 3. Run all cells in `notebooks/group26_mpongwe_dataset_creation.ipynb`
 4. The cleaned dataset is written to
    `data/processed/db-unza26-csc4792-mpongwe_cdf_projects.csv`
+
+## Completed datasets
+
+The repository contains three completed, official-source datasets:
+
+| Dataset | Records | Coverage | Output |
+|---|---:|---|---|
+| CDF projects | 84 | 2025 | `data/processed/db-unza26-csc4792-mpongwe_cdf_projects.csv` |
+| Annual procurement plans | 147 | 2023-2025 | `data/processed/db-unza26-csc4792-mpongwe_procurement.csv` |
+| Audited financial statement categories | 39 | 2022, 2024 | `data/processed/db-unza26-csc4792-mpongwe_financial_data.csv` |
+
+All files are UTF-8 CSVs with `|` as the separator. The original CDF content
+remains unchanged. The financial dataset contains only comparable, non-total
+receipt and payment categories from two complete audited financial statements;
+source dashes remain blank and no narrative amounts are inferred.
+
+## Procurement sources and coverage
+
+The procurement dataset uses annual procurement plans published directly by
+Mpongwe Town Council. The raw PDFs are retained in `data/raw/procurement/`:
+
+- `mpongwe_procurement_plan_2023.pdf` - 47 plan rows.
+- `mpongwe_procurement_plan_2024.pdf` - 37 plan rows.
+- `mpongwe_procurement_plan_2025.pdf` - 63 plan rows.
+
+The plans are machine-readable spreadsheets rendered as PDFs. The 2023 and
+2025 plans use horizontal page splits; the notebook joins paired page sections
+by the original spreadsheet row number. It excludes repeated headers and page
+numbers, normalizes whitespace/dates/numeric values, and retains missing values
+where the PDF does not provide a complete value. Source-visible description
+text is retained verbatim, including visible truncation; incomplete reference
+numbers are not guessed.
+
+## Repository structure
+
+```text
+data/
+  raw/
+    mpongwe_cdf_projects_2025.pdf
+    procurement/                 # official 2023-2025 procurement PDFs
+    financial/                   # official 2022 and 2024 audited statements
+  processed/
+    db-unza26-csc4792-mpongwe_cdf_projects.csv
+    db-unza26-csc4792-mpongwe_procurement.csv
+    db-unza26-csc4792-mpongwe_financial_data.csv
+notebooks/
+  group26_mpongwe_dataset_creation.ipynb
+documents/
+  data_dictionary.md
+  methodology.md
+```
+
+## Reproducing all completed datasets
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Ensure the CDF source, the three procurement PDFs, and the two financial
+   statement PDFs are present in the raw paths shown above.
+3. Open `notebooks/group26_mpongwe_dataset_creation.ipynb` and restart the
+   kernel, then run all cells from top to bottom.
+4. The notebook recreates all three processed CSV files and validates their exports.
+
+## Financial sources and coverage
+
+The financial dataset uses the official 2022 and 2024 audited financial
+statements retained in `data/raw/financial/`. It extracts the source table's
+final budget, actual amount, and variance for non-total receipt and payment
+categories. The 2023 statement is an image-only scan, and the available 2025
+budget-performance document contains narrative half-year figures rather than a
+comparable financial table, so neither is forced into the CSV.
